@@ -1,0 +1,4 @@
+*.txt linguist-language=Python
+*.feature linguist-language=python
+*.js linguist-language=python
+*.html linguist-language=python
