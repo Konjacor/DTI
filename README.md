@@ -6,9 +6,9 @@ We provide an example script to run experiments on our dataset:
 - Run `./MGNN_model/main.py`: predict drug-target interactions. 
 
 ### All process
-1. -Run `./matkab/compute_similarity.m`
+1. -Run `./matlab/compute_similarity.m`
 
-2. -Run `./matkab/run_joint.m`
+2. -Run `./matlab/run_joint.m`
 
 3. -Run `./DAE_model/run_DAE.py`
    
