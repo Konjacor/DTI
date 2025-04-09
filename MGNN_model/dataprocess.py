@@ -13,7 +13,7 @@ def parse_index_file(filename):
 
 
 def construct_graph(dataset, features, topk):
-    fname = '../data/' + dataset + '/knn/tmp.txt'
+    fname = '../MGNN_data/' + dataset + '/knn/tmp.txt'
     print(fname)
     f = open(fname, 'w')
     ##### Kernel
@@ -39,11 +39,12 @@ def construct_graph(dataset, features, topk):
 def generate_knn(dataset):
 
         topk = 2
-        data = np.loadtxt('../data/' + dataset + '/' + dataset + '.feature', dtype=float)
-        # print(data)
+        # data = np.loadtxt('../MGNN_data/' + dataset + '/' + dataset + '.feature', dtype=float)
+        data = np.loadtxt('../DAE/dti.feature', dtype=float)
+        print(data.shape)#（2664,500）
         construct_graph(dataset, data, topk)
-        f1 = open('../data/' + dataset + '/knn/tmp.txt', 'r')
-        f2 = open('../data/' + dataset + '/knn/c'+str(topk)+'.txt', 'w')
+        f1 = open('../MGNN_data/' + dataset + '/knn/tmp.txt', 'r')
+        f2 = open('../MGNN_data/' + dataset + '/knn/c'+str(topk)+'.txt', 'w')
         lines = f1.readlines()
         for line in lines:
             print(line)
@@ -54,4 +55,4 @@ def generate_knn(dataset):
 
 '''generate KNN graph'''
 
-# generate_knn('dti')
+generate_knn('dti')

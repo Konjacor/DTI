@@ -11,10 +11,14 @@ We provide an example script to run experiments on our dataset:
 2. -Run `./matlab/run_joint.m`
 
 3. -Run `./DAE_model/run_DAE.py`
+
+4. -Run `./DAE/ProcessDPP.py`
+
+5. -Run `./DAE/ProcessTopo.py`
    
-4. -Run `./MGNN_model/dataprocess.py`
+6. -Run `./MGNN_model/dataprocess.py`
    
-5. -Run `./MGNN_model/main.py`
+7. -Run `./MGNN_model/main.py`
 
 
 ### Code and data

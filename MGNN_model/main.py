@@ -29,12 +29,13 @@ if __name__ == "__main__":
     fold_AUPR = []#用来保存实验数据最后计算平均AUPR
 
     # 初始化 AutoGCL 模块
-    augmentation_pipeline = AugmentationPipeline(node_drop_prob=0.05, edge_perturb_prob=0.05)
+    augmentation_pipeline = AugmentationPipeline(node_drop_prob=0.5, edge_perturb_prob=0.5)
     contrastive_learning = ContrastiveLearning(temperature=0.03, contrastive_weight=0.05)
 
     for fold in range(0,5):#读取数据
         # 路径有问题，应该是MGNN_data文件夹而非data文件夹，已经改过来了
-        config.structgraph_path = "../MGNN_data/dti/alledg00{}.txt".format(fold + 1)
+        # config.structgraph_path = "../MGNN_data/dti/alledg00{}.txt".format(fold + 1)
+        config.structgraph_path = "../DAE/topo/alledg00{}.txt".format(fold + 1)
         config.train_path = "../MGNN_data/dti/train00{}.txt".format(fold + 1)#训练集？
         config.test_path = "../MGNN_data/dti/test00{}.txt".format(fold + 1)#测试集？
         use_seed = not config.no_seed#用不用种子？
