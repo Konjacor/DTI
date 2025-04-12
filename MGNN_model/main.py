@@ -29,7 +29,7 @@ if __name__ == "__main__":
     fold_AUPR = []#用来保存实验数据最后计算平均AUPR
 
     # 初始化 AutoGCL 模块
-    augmentation_pipeline = AugmentationPipeline(node_drop_prob=0.5, edge_perturb_prob=0.5)
+    augmentation_pipeline = AugmentationPipeline(node_drop_prob=0.7, edge_perturb_prob=0.7)
     contrastive_learning = ContrastiveLearning(temperature=0.03, contrastive_weight=0.05)
 
     for fold in range(0,5):#读取数据

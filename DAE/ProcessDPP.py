@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import os
 from sklearn_extra.cluster import KMedoids
+from FeatureFusion import FeatureFusion
+import torch
 
 def cluster_kmedoids(features, n_clusters):
     """使用k-medoids算法进行聚类"""
@@ -164,6 +166,19 @@ if __name__ == "__main__":
 
     # 加载特征
     drug_features, protein_features = load_features(drug_feature_path, protein_feature_path)
+
+    # #todo 连接图结构的特征
+    # drug_embeddings_path = '../feature/drug_embeddings_normalized.txt'
+    # drug_embeddings = np.loadtxt(drug_embeddings_path)
+    # protein_embeddings_path = '../feature/protein_embeddings_normalized.txt'
+    # protein_embeddings = np.loadtxt(protein_embeddings_path)
+    # drug_fusion_model = FeatureFusion(seq_dim=drug_features.shape[1],graph_dim=drug_embeddings.shape[1])
+    # protein_fusion_model = FeatureFusion(seq_dim=protein_features.shape[1],graph_dim=protein_embeddings.shape[1])
+    # drug_features = drug_fusion_model(torch.Tensor(drug_features),torch.Tensor(drug_embeddings)).detach().numpy()
+    # protein_features = protein_fusion_model(torch.Tensor(protein_features),torch.Tensor(protein_embeddings)).detach().numpy()
+
+    # drug_features = np.concatenate((drug_features,drug_embeddings),1)
+    # protein_features = np.concatenate((protein_features,protein_embeddings),1)
 
     print(drug_features.shape)#
     print(protein_features.shape)#

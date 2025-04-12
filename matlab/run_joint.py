@@ -3,29 +3,52 @@ import os
 from scipy.sparse import csr_matrix, identity
 from scipy.sparse.linalg import norm as sparse_norm
 import time
-
+from scipy.sparse import diags
 
 def diffusionRWR(A, maxiter, restartProb):
-    n = A.shape[0]  # n表示矩阵A的行数
+    n = A.shape[0]
 
-    # Add self-edge to isolated nodes
-    A += np.diag((A.sum(axis=1) == 0).A1)
+    # 修正：使用稀疏对角矩阵添加自环
+    isolated = (A.sum(axis=1).A1 == 0)
+    diag_isolated = diags(isolated.astype(float), 0, shape=(n, n), format='csr')
+    A = A + diag_isolated  # 保持A为csr_matrix类型
 
-    # Normalize the adjacency matrix
-    P = A.multiply(1 / A.sum(axis=1).A1[:, np.newaxis])
+    # 归一化邻接矩阵
+    row_sums = A.sum(axis=1).A1
+    P = A.multiply(1 / row_sums[:, np.newaxis])
 
-    # Personalized PageRank
+    # 个性化PageRank迭代
     restart = identity(n, format='csr')
     Q = identity(n, format='csr')
-
     for i in range(maxiter):
         Q_new = (1 - restartProb) * P.dot(Q) + restartProb * restart
         delta = sparse_norm(Q - Q_new, 'fro')
-        Q = Q_new.copy()
+        Q = Q_new
         if delta < 1e-6:
             break
-
     return Q.toarray()
+
+# def diffusionRWR(A, maxiter, restartProb):
+#     n = A.shape[0]  # n表示矩阵A的行数
+#
+#     # Add self-edge to isolated nodes
+#     A += np.diag((A.sum(axis=1) == 0).A1)
+#
+#     # Normalize the adjacency matrix
+#     P = A.multiply(1 / A.sum(axis=1).A1[:, np.newaxis])
+#
+#     # Personalized PageRank
+#     restart = identity(n, format='csr')
+#     Q = identity(n, format='csr')
+#
+#     for i in range(maxiter):
+#         Q_new = (1 - restartProb) * P.dot(Q) + restartProb * restart
+#         delta = sparse_norm(Q - Q_new, 'fro')
+#         Q = Q_new.copy()
+#         if delta < 1e-6:
+#             break
+#
+#     return Q.toarray()
 
 
 def joint(networks, rsp, maxiter):
